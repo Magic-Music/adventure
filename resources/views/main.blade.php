@@ -14,14 +14,14 @@
         </script>
 
         <!-- Fonts -->
-        <link href="https://fonts.cdnfonts.com/css/zx81spectrum" rel="stylesheet">
-
+        <link href="https://allfont.net/allfont.css?fonts=zx-spectrum" rel="stylesheet" type="text/css" />
+        
         <!-- Styles -->
         <style>
             html, body {
                 background-color: black;
                 color: white;
-                font-family: 'ZX-Spectrum';
+                font-family: 'ZX Spectrum';
                 font-size: 1em;
                 font-weight: 200;
                 height: 98vh;
@@ -63,7 +63,7 @@
             .input, .command, .command_label {
                 width: calc(100vw - 62px);
                 color: green;
-                font-family: 'ZX-Spectrum';
+                font-family: 'ZX Spectrum';
                 display: inline-block;
             }
 
@@ -91,6 +91,7 @@
                 width:0;
                 padding:0;
                 margin:0;
+                margin-left: 4px;
                 text-align: right;
             }
 
