@@ -13,7 +13,7 @@ class CreateVerbsTable extends Migration
      */
     public function up()
     {
-        Schema::create('verbs', function (Blueprint $table) {
+        Schema::connection('master')->create('verbs', function (Blueprint $table) {
             $table->id();
             $table->string("verb");
             $table->string("function");

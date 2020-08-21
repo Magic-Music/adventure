@@ -13,7 +13,7 @@ class CreateLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('locations', function (Blueprint $table) {
+        Schema::connection('master')->create('locations', function (Blueprint $table) {
             $table->id();
             $table->string("long_description");
             $table->string("description");

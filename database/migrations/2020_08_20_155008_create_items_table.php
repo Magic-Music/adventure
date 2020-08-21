@@ -13,7 +13,7 @@ class CreateItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::connection('master')->create('items', function (Blueprint $table) {
             $table->id();
             $table->string("full_description");
             $table->string("short_description");
