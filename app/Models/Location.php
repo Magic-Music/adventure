@@ -8,6 +8,20 @@ use App\Models\Character;
 
 class Location extends Model
 {
+    protected $fillable = [
+        'id',
+        'long_description',
+        'description',
+        'north',
+        'east',
+        'south',
+        'west',
+        'up',
+        'down',
+    ];
+
+    public $timestamps = false;
+
     public function items()
     {
         return $this->hasMany(Item::class);
