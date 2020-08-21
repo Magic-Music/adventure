@@ -1,0 +1,123 @@
+@font-face {
+  font-family: 'ZX Spectrum';
+  src: url('/font/zx-spectrum.ttf')  format('truetype')
+}
+
+html, body {
+    background-color: black;
+    color: white;
+    font-family: 'ZX Spectrum';
+    font-size: 1em;
+    font-weight: 200;
+    height: 98vh;
+    margin: 0;
+    overflow:hidden;
+}
+
+.full-height {
+    height: 100vh;
+}
+
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.position-ref {
+    position: relative;
+}
+
+.content {
+    text-align: center;
+}
+
+.title {
+    font-size: 84px;
+    color: darkcyan;
+}
+
+a {
+    font-size: 12pt;
+    text-decoration: none;
+    color: #00f !important;
+}
+
+a:hover{
+    color: #f00 !important;
+}
+
+.m-b-md {
+    margin-bottom: 30px;
+}
+
+.output::-webkit-scrollbar {
+  width: 10px;
+}
+
+.output::-webkit-scrollbar-track {
+  background: darkblue;
+}
+
+.output::-webkit-scrollbar-thumb {
+  background-color: blue;
+  border-radius: 4px;
+  border: 3px solid black;
+}
+
+.input, .output {
+    margin:10px;
+    border:6px double;
+    border-radius: 6px;
+}
+
+.output {
+    scrollbar-width: thin;
+    scrollbar-color: black darkblue;
+    height: calc(100vh - 130px);
+    width: calc(100vw - 82px);
+    border-color: darkblue;
+    color: #bbb;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+.input, .command, .command_label {
+    width: calc(100vw - 62px);
+    color: green;
+    font-family: 'ZX Spectrum';
+    display: inline-block;
+}
+
+.input {
+    border-color: darkcyan;
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+}
+
+.command {
+    height: calc(100% - 4px);
+    width: calc(100% - 40px);
+    padding:2px;
+    border: none;
+    background-color: black;
+    font-size: 1em;
+}
+
+.command:focus {
+    outline: none;
+}
+
+.command_label {
+    width:0;
+    padding:0;
+    margin:0;
+    margin-left: 4px;
+    text-align: right;
+}
+
+.inverse{
+    background-color: blue;
+    padding: 2px 0 2px 4px;
+}
