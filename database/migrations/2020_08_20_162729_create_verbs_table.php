@@ -16,7 +16,9 @@ class CreateVerbsTable extends Migration
         Schema::create('verbs', function (Blueprint $table) {
             $table->id();
             $table->string("verb");
+            $table->string("class");
             $table->string("function");
+            $table->string("parameters");
         });
     }
 

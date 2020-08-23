@@ -13,9 +13,13 @@ class Location extends Model
         'long_description',
         'description',
         'north',
+        'northeast',
         'east',
+        'southeast',
         'south',
+        'southwest',
         'west',
+        'northwest',
         'up',
         'down',
     ];

@@ -9,9 +9,10 @@ $(function(){
         }
         restartWaitTimer();
     });
-    
-    restartWaitTimer();
+
     setInterval(wait, 1000);
+    
+    sendCommand('look');
 });
 
 function restartWaitTimer()
@@ -22,15 +23,13 @@ function restartWaitTimer()
 function wait()
 {
     if(--waitTimer == 0) {
-        sendCommand(true);
+        sendCommand('nothing');
     }
 }
 
-function sendCommand(wait = false)
+function sendCommand(command)
 {
-    var command;
-
-    if (!wait) {
+    if (!command) {
         command = $('#command').val();
         $('#command').val('');
     }
