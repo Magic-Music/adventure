@@ -12,7 +12,7 @@ class GameController extends Controller
         
         return response()->json([
             'response' => "You $command",
-            'gameover' => true
+            'gameover' => false
         ]);
     }
 }
