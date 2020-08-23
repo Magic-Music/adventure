@@ -3,21 +3,15 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
         <title>Adventure</title>
 
         <script src="/js/jquery.js"></script>
-        <script>
-            $(function(){
-                $('#command').focus();
-            });
-        </script>
-
-        <link href="/css/styles.css" rel="stylesheet" type="text/css" />
-        
+        <script src="/js/adventure.js"></script>
+        <link href="/css/styles.css" rel="stylesheet" type="text/css" /> 
     </head>
+    
     <body>
-        <div class='output'>
+        <div class='output' id='output'>
             <span style='font-size:2em; color:cyan'>College Adventure<br><br></span>
             You are a student at Wibbleforce College, and you are in trouble!<br><br><br>
             You're late with your homework, your teachers are after your blood, and to make things worse,<br>
@@ -28,13 +22,14 @@
             <span class='inverse'>2</span>: Mark<br><br>
             <span class='inverse'>3</span>: Steve<br><br>
             <span class='inverse'>4</span>: Matthew<br><br>
-            Enter a number (1-4) below to choose your character!
+            Enter a number (1-4) below to choose your character!<br><br>
         </div>
-        <div class='input'>
+        
+        <div class='input' id='input'>
             <span class='command_label'>&gt;</span>
             <input class='command' type='text' id='command' name='command'>
         </div>
+        
     </body>
-
 
 </html>
