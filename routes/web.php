@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index');
 Route::view('main', 'main');
+Route::post('command', 'GameController@command');

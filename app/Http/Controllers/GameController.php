@@ -13,12 +13,17 @@ class GameController extends Controller
 {
     public function command(Request $request)
     {
+        Game::initialise();
+        
         $command = strtolower($request->command);
         $response = Parser::parse($command);
         $characters = Ai::run();
+        
+        Game::save();
         $response = [
-            'response' => $response . $characters . "<br>Current location is " . Game::$currentLocation,
-            'gameover' => Game::$gameover                
+            'response' => $response . $characters,
+            'gameover' => Game::gameover(),
+            'session' => session('adventure')
         ];
 
         return response()->json($response);

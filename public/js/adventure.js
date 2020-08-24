@@ -34,7 +34,7 @@ function sendCommand(command)
         $('#command').val('');
     }
     
-    $.post('/api/command' , {command:command}, displayResult);
+    $.post('/command' , {command:command}, displayResult);
 }
 
 function displayResult(data)

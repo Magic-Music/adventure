@@ -29,15 +29,19 @@ class Player
     public function move($params)
     {
         $direction = $params[0];
-        $location = Location::find(Game::$currentLocation);
+        $location = Location::find(Game::currentLocation());
         $newLocation = $location->$direction;
         
         if ($newLocation == '' || is_null($newLocation)) {
             return "You cannot go $direction";
         }
         
-        Game::$currentLocation = $newLocation;
-        $description = Location::find($newLocation)->long_description;
-        return "You are $description";
+        Game::currentLocation($newLocation);
+        return ($this->look());
     }
+    
+    public function look()
+    {
+        return "You are " . Location::find(Game::currentLocation())->long_description;
+    }    
 }
