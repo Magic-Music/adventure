@@ -6,19 +6,28 @@ use App\Models\Location;
 
 class Game
 {
-    private static $variables;
+    public static $variables;
     
     private static function getInitialPosition()
     {
+        //If not configured in the env file, start at location with id 1
+        $startLocationSlug = config('adventure.start_location_slug') ?? (Location::find(1)->slug);
+
         return [
-            'currentLocation' => 1,
+            'currentLocation' => $startLocationSlug,
             'gameover' => false,
             'itemLocations' => [],
             'itemsCarried' => [],
             'characterLocations' => [],
         ];
     }
-    
+
+    public static function clear()
+    {
+        session()->flush();
+        self::$variables = null;
+    }
+
     public static function initialise()
     {
         self::$variables = session('adventure') ?? self::getInitialPosition();

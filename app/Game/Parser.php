@@ -18,6 +18,11 @@ class Parser
             //response so th AI characters can do their thing
             return "You wait. Time passes...";
         }
+
+        if($command == 'flush') {
+            Game::clear();
+            return "Flushed";
+        }
         
         $words = explode(' ', $command);
         foreach ($words as $index => $word) {
@@ -32,7 +37,7 @@ class Parser
         if(!$matchVerb) {
             return "Sorry, I dont understand what you mean";
         }
-
+Game::set('verb', $matchVerb);
         $class = '\\App\\Game\\' . $matchVerb->class;
         $function = $matchVerb->function;
         $parameters = Arr::wrap($matchVerb->parameters);

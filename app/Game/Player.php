@@ -29,7 +29,7 @@ class Player
     public function move($params)
     {
         $direction = $params[0];
-        $location = Location::find(Game::currentLocation());
+        $location = Location::where('slug', Game::currentLocation())->first();
         $newLocation = $location->$direction;
         
         if ($newLocation == '' || is_null($newLocation)) {
@@ -42,7 +42,8 @@ class Player
     
     public function look()
     {
-        $location =  "You are " . Location::where('slug', Game::currentLocation())->long_description;
-        $items = "You can see " . implode(Items::list());
+        $location =  "You are " . Location::where('slug', Game::currentLocation())->first()->long_description;
+//        $items = "You can see " . implode(Items::list());
+        return $location;
     }    
 }
