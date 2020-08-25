@@ -15,12 +15,14 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
+            $table->string('slug');
             $table->string("full_description");
             $table->string("short_description");
-            $table->string("other_nouns");
-            $table->integer("location_id");
-            $table->integer("character_id");
+            $table->string("other_nouns")->nullable();
+            $table->integer("location")->nullable();
+            $table->integer("character")->nullable();
             $table->boolean("takeable")->default(true);
+            $table->boolean("describe_look")->default(true);
         });
     }
 

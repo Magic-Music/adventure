@@ -42,7 +42,7 @@ class Player
     
     public function look()
     {
-        $location =  "You are " . Location::find(Game::currentLocation())->long_description;
+        $location =  "You are " . Location::where('slug', Game::currentLocation())->long_description;
         $items = "You can see " . implode(Items::list());
     }    
 }

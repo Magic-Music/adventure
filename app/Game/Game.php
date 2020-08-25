@@ -6,7 +6,7 @@ use App\Models\Location;
 
 class Game
 {
-    private static $currentPosition;
+    private static $variables;
     
     private static function getInitialPosition()
     {
@@ -14,18 +14,29 @@ class Game
             'currentLocation' => 1,
             'gameover' => false,
             'itemLocations' => [],
+            'itemsCarried' => [],
             'characterLocations' => [],
         ];
     }
     
     public static function initialise()
     {
-        self::$currentPosition = session('adventure') ?? self::getInitialPosition();
+        self::$variables = session('adventure') ?? self::getInitialPosition();
     }
     
     public static function save()
     {
-        session(['adventure' => self::$currentPosition]);      
+        session(['adventure' => self::$variables]);
+    }
+
+    public static function get($key)
+    {
+        return self::$variables[$key] ?? null;
+    }
+
+    public static function set($key, $value)
+    {
+        self::$variables[$key] = $value;
     }
     
     public static function currentLocation($update = false)
@@ -45,15 +56,4 @@ class Game
             return self::get('gameover');
         }
     }
-    
-    public static function get($key)
-    {
-        return self::$currentPosition[$key] ?? null;
-    }
-    
-    public static function set($key, $value)
-    {
-        self::$currentPosition[$key] = $value;
-    }
-
 }

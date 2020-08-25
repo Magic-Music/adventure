@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
+    public $timestamps = false;
+
     public function location()
     {
         return $this->hasOne(Location::class);
