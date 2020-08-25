@@ -1,0 +1,13 @@
+verb,class,function,parameters
+look,Player,look,
+"north,n",Player,move,north
+"northeast,ne",Player,move,northeast
+"east,e",Player,move,east
+"southeast,se",Player,move,southeast
+"south,s",Player,move,south
+"southwest,sw",Player,move,southwest
+"west,w",Player,move,west
+"northwest,nw",Player,move,northwest
+"up,u",Player,move,up
+"down,d",Player,move,down
+go,Player,go,*
