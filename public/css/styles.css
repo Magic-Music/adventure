@@ -51,6 +51,10 @@ a:hover{
     margin-bottom: 30px;
 }
 
+.instructions {
+    width: 60vw;
+}
+
 .output::-webkit-scrollbar {
   width: 10px;
 }

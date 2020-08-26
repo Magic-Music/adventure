@@ -17,7 +17,12 @@
                     College<br>
                     Adventure!
                 </div>
-
+                <div class="instructions">
+                    You are a student at Wibbleforce College, and you are in trouble!<br><br><br>
+                    You're late with your homework, your teachers are after your blood, and to make things worse,
+                    you offered to help out with the concert tonight, and you haven't even started getting the equipment to the hall.<br><br><br>
+                    As if that wasn't enough, other students and staff keep bothering you to help them too...<br><br><br>
+                </div>
                 <div class="links">
                     <a href="/main">Play</a>
                 </div>

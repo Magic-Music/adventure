@@ -13,16 +13,6 @@
     <body>
         <div class='output' id='output'>
             <span style='font-size:2em; color:cyan'>College Adventure<br><br></span>
-            You are a student at Wibbleforce College, and you are in trouble!<br><br><br>
-            You're late with your homework, your teachers are after your blood, and to make things worse,<br>
-            you offered to help out with the concert tonight, and you haven't even started getting the equipment to the hall.<br><br><br>
-            As if that wasn't enough, other students and staff keep bothering you to help them too...<br><br><br>
-            Who will you be?<br><br><br>
-            <span class='inverse'>1</span>: Adam<br><br>
-            <span class='inverse'>2</span>: Mark<br><br>
-            <span class='inverse'>3</span>: Steve<br><br>
-            <span class='inverse'>4</span>: Matthew<br><br>
-            Enter a number (1-4) below to choose your character!<br><br>
         </div>
         
         <div class='input' id='input'>
