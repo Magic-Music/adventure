@@ -37,7 +37,7 @@ class Parser
         if(!$matchVerb) {
             return "Sorry, I dont understand what you mean";
         }
-Game::set('verb', $matchVerb);
+
         $class = '\\App\\Game\\' . $matchVerb->class;
         $function = $matchVerb->function;
         $parameters = Arr::wrap($matchVerb->parameters);

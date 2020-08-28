@@ -11,3 +11,7 @@ look,Player,look,
 "southwest,sw",Player,move,southwest
 "northwest,nw",Player,move,northwest
 go,Player,go,*
+take,Items,take,*
+get,Items,take,*
+drop,Items,drop,*
+"inventory,list,i",Player,inventory,

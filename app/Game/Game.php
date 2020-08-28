@@ -2,35 +2,41 @@
 
 namespace App\Game;
 
+use App\Game\Items;
 use App\Models\Location;
 
 class Game
 {
     public static $variables;
-    
-    private static function getInitialPosition()
-    {
-        //If not configured in the env file, start at location with id 1
-        $startLocationSlug = config('adventure.start_location_slug') ?? (Location::find(1)->slug);
-
-        return [
-            'currentLocation' => $startLocationSlug,
-            'gameover' => false,
-            'itemLocations' => [],
-            'itemsCarried' => [],
-            'characterLocations' => [],
-        ];
-    }
 
     public static function clear()
     {
         session()->flush();
         self::$variables = null;
     }
+    
+    private static function reset()
+    {
+        //If not configured in the env file, start at location with id 1
+        $startLocationSlug = config('adventure.start_location_slug') ?? (Location::find(1)->slug);
+
+        self::$variables = [
+            'currentLocation' => $startLocationSlug,
+            'gameover' => false,
+            'itemLocations' => [],
+            'itemsCarried' => [],
+            'characterLocations' => [],
+        ];
+        
+        Items::initialise();
+    }
 
     public static function initialise()
     {
-        self::$variables = session('adventure') ?? self::getInitialPosition();
+        self::$variables = session('adventure') ?? null;
+        if(!self::$variables) {
+            self::reset();
+        }
     }
     
     public static function save()
@@ -46,6 +52,15 @@ class Game
     public static function set($key, $value)
     {
         self::$variables[$key] = $value;
+    }
+    
+    public static function push($key, $value)
+    {
+        array_push(self::$variables[$key], $value);
+    }
+    
+    public static function remove($key, $value) {
+        unset(self::$variables[$key][array_search($value, self::$variables[$key])]);
     }
     
     public static function currentLocation($update = false)

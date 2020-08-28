@@ -18,9 +18,10 @@ class CreateItemsTable extends Migration
             $table->string('slug');
             $table->string("full_description");
             $table->string("short_description");
+            $table->string("article")->nullable();
             $table->string("other_nouns")->nullable();
-            $table->integer("location")->nullable();
-            $table->integer("character")->nullable();
+            $table->string("location")->nullable();
+            $table->string("character")->nullable();
             $table->boolean("takeable")->default(true);
             $table->boolean("describe_look")->default(true);
         });
