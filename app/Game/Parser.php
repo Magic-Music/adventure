@@ -33,7 +33,7 @@ class Parser
       
         $verb = $words[0];
         unset($words[0]);
-        $matchVerb = Verb::where('verb', 'like', "%{$verb}%")->first();
+        $matchVerb = Verb::where('verb', 'like', "%|{$verb}|%")->first();
         if(!$matchVerb) {
             return "Sorry, I dont understand what you mean";
         }

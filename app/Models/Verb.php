@@ -14,5 +14,9 @@ class Verb extends Model
     ];
     
     public $timestamps = false;
-    
+
+    public function setVerbAttribute($value)
+    {
+        $this->attributes['verb'] = '|' . implode('|', explode(',', $value)) . '|';
+    }
 }

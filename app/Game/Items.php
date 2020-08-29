@@ -70,7 +70,7 @@ class Items
         $item = trim(implode(' ', $params));
         $matchingItem = Item::where('slug', $item)
                 ->orWhere('short_description', $item)
-                ->orWhere('other_nouns', 'LIKE', "%$item%")
+                ->orWhere('other_nouns', 'LIKE', "%|{$item}|%")
                 ->first();
         
         if (!$matchingItem || ($matchingItem->currentLocation ?? 'no_matching_item') != Game::currentLocation()) {
@@ -91,7 +91,7 @@ class Items
         $item = trim(implode(' ', $params));
         $matchingItem = Item::where('slug', $item)
                 ->orWhere('short_description', $item)
-                ->orWhere('other_nouns', 'LIKE', "%$item%")
+                ->orWhere('other_nouns', 'LIKE', "%|{$item}|%")
                 ->first();
         
         if (!$matchingItem) {

@@ -45,6 +45,11 @@ class Item extends Model
         return ucfirst($this->article) . " " . $this->short_description;
     }
 
+    public function setOtherNounsAttribute($value)
+    {
+        $this->attributes['other_nouns'] = '|' . implode('|', explode(',', $value)) . '|';
+    }
+    
     public function location()
     {
         return $this->hasOne(Location::class);
