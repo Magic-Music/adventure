@@ -45,7 +45,7 @@ class Parser
         if($wildcard !==false) {
             array_splice($parameters, $wildcard, 1, $words);
         }
-
+        
         return (new $class)->$function($parameters);
     }
 }

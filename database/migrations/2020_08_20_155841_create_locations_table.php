@@ -18,16 +18,16 @@ class CreateLocationsTable extends Migration
             $table->string('slug');
             $table->string("long_description");
             $table->string("description");
-            $table->integer("north")->nullable();
-            $table->integer("northeast")->nullable();
-            $table->integer("east")->nullable();
-            $table->integer("southeast")->nullable();
-            $table->integer("south")->nullable();
-            $table->integer("southwest")->nullable();
-            $table->integer("west")->nullable();
-            $table->integer("northwest")->nullable();
-            $table->integer("up")->nullable();
-            $table->integer("down")->nullable();
+            $table->string("north")->nullable();
+            $table->string("northeast")->nullable();
+            $table->string("east")->nullable();
+            $table->string("southeast")->nullable();
+            $table->string("south")->nullable();
+            $table->string("southwest")->nullable();
+            $table->string("west")->nullable();
+            $table->string("northwest")->nullable();
+            $table->string("up")->nullable();
+            $table->string("down")->nullable();
         });
     }
 

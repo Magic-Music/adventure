@@ -9,6 +9,10 @@ $(function(){
         }
         restartWaitTimer();
     });
+    
+    $('#output').click(function(e) {
+        $('#command').focus();        
+    });
 
     setInterval(wait, 1000);
     

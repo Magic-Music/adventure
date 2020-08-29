@@ -26,6 +26,7 @@ class Game
             'itemLocations' => [],
             'itemsCarried' => [],
             'characterLocations' => [],
+            'locationsVisited' => [],
         ];
         
         Items::initialise();
@@ -57,6 +58,13 @@ class Game
     public static function push($key, $value)
     {
         array_push(self::$variables[$key], $value);
+    }
+    
+    public static function pushUnique($key, $value)
+    {
+        if (!in_array($value, self::$variables[$key])) {
+            array_push(self::$variables[$key], $value);
+        }
     }
     
     public static function remove($key, $value) {

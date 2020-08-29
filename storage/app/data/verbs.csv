@@ -1,5 +1,5 @@
 verb,class,function,parameters
-look,Player,look,
+look,Player,look,full
 "north,n",Player,move,north
 "east,e",Player,move,east
 "south,s",Player,move,south

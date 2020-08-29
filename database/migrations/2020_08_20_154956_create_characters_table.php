@@ -19,7 +19,7 @@ class CreateCharactersTable extends Migration
             $table->string("full_name");
             $table->string("short_name");
             $table->string("description");
-            $table->integer("location_id");
+            $table->string("location_id");
         });
     }
 

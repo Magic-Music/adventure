@@ -8,6 +8,19 @@ use App\Models\Character;
 
 class Location extends Model
 {
+    protected $directions = [
+        'north',
+        'northeast',
+        'east',
+        'southeast',
+        'south',
+        'southwest',
+        'west',
+        'northwest',
+        'up',
+        'down',        
+    ];
+    
     protected $fillable = [
         'id',
         'long_description',
@@ -26,6 +39,17 @@ class Location extends Model
 
     public $timestamps = false;
 
+    public function getExitsAttribute()
+    {
+        $exits = [];
+        foreach ($this->directions as $direction) {
+            if($this->attributes[$direction]) {
+                $exits[] = $direction;
+            }
+        }
+        return $exits;
+    }
+    
     public function items()
     {
         return $this->hasMany(Item::class);

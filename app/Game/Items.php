@@ -57,10 +57,12 @@ class Items
                 ->toArray();  
     }
 
-    public static function listShort()
+    public static function listShort($all = false)
     {
         return self::here()
-                ->where('describe_look', 1)
+                ->when(!$all, function ($query) {
+                    return $query->where('describe_look', 1);
+                })                        
                 ->pluck('short_description_with_capitalised_article')
                 ->toArray();  
     }

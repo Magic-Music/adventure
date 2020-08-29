@@ -37,16 +37,29 @@ class Player
             return "You cannot go $direction";
         }
         
-        Game::currentLocation($newLocation);
+        Game::currentLocation($newLocation);   
         return ($this->look());
     }
     
-    public function look()
+    public function look($params = null)
     {
-        $location =  "You are " . Location::where('slug', Game::currentLocation())->first()->long_description;
-        $itemList = implode(', ', Items::listShort());
+        $currentLocation = Game::currentLocation();
+        $visitedPreviously = in_array($currentLocation, Game::get('locationsVisited'));
+        if (($params[0] ?? null) == 'full') {
+            $visitedPreviously = false;
+        }
+        $position = Location::where('slug', $currentLocation)->first();
+        if (!$visitedPreviously) {
+            $location =  $position->long_description;
+            $itemList = implode(', ', Items::listShort());
+            Game::pushUnique('locationsVisited', $currentLocation);
+        } else {
+            $exits = implode(',', $position->exits);     
+            $location = $position->description . " Exits are " . $exits;
+            $itemList = implode(', ', Items::listShort(true));
+        }
         $items = ($itemList) ? "<br><br>You can see: $itemList" : '';
-        return $location . $items . "<br><br>";
+        return "You are " . $location . $items . "<br><br>";
     }
     
     public function inventory()
