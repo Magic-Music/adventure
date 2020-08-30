@@ -26,7 +26,7 @@ class Items
     public static function here() : Collection
     {
         $items = Game::get('itemLocations');
-        $location = Game::currentLocation();
+        $location = Player::currentLocation();
 
         $slugs = [];
         foreach ($items as $slug => $item) {
@@ -63,7 +63,7 @@ class Items
                 ->when(!$all, function ($query) {
                     return $query->where('describe_look', 1);
                 })                        
-                ->pluck('short_description_with_capitalised_article')
+                ->pluck('short_description_with_article')
                 ->toArray();  
     }
 
@@ -75,7 +75,7 @@ class Items
                 ->orWhere('other_nouns', 'LIKE', "%|{$item}|%")
                 ->first();
         
-        if (!$matchingItem || ($matchingItem->currentLocation ?? 'no_matching_item') != Game::currentLocation()) {
+        if (!$matchingItem || ($matchingItem->currentLocation ?? 'no_matching_item') != Player::currentLocation()) {
             return "There is no $item here";
         }
         
@@ -105,7 +105,7 @@ class Items
         }
         
         Game::remove('itemsCarried', $matchingItem->slug);
-        self::location($matchingItem->slug, Game::currentLocation());
+        self::location($matchingItem->slug, Player::currentLocation());
         return "You drop the " . $matchingItem->short_description;
     }
 }

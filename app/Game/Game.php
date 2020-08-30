@@ -71,15 +71,6 @@ class Game
         unset(self::$variables[$key][array_search($value, self::$variables[$key])]);
     }
     
-    public static function currentLocation($update = false)
-    {
-        if($update !== false) {
-            self::set('currentLocation', $update);
-        } else {
-            return self::get('currentLocation');
-        }
-    }
-    
     public static function gameover($update = 'no')
     {
         if($update != 'no') {
@@ -87,5 +78,14 @@ class Game
         } else {
             return self::get('gameover');
         }
+    }
+    
+    public static function list($array)
+    {
+        $list = implode(', ', $array);
+        if(count($array) > 1) {
+            $list = preg_replace("((.*),)", "$1 and", $list);
+        }
+        return $list;
     }
 }

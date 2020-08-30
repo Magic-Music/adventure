@@ -1,5 +1,5 @@
 var waitTimer;
-var timeToWaitBeforeBlankTurn = 30;
+var timeToWaitBeforeBlankTurn = 60;
 
 $(function(){
     $('#command').focus();
