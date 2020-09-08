@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Game\Game;
 use App\Game\Parser;
+use App\Game\Game;
 use App\Game\Ai;
-
-use App\Models\Verb;
 
 class GameController extends Controller
 {
@@ -22,9 +20,12 @@ class GameController extends Controller
         Game::save();
         $response = [
             'response' => $response . $characters,
-            'gameover' => Game::gameover(),
-            'session' => session('adventure')
+            'gameover' => Game::gameover()
         ];
+        
+        if (Game::developerMode()) {
+            $response['session'] = session('adventure');
+        }
 
         return response()->json($response);
     }

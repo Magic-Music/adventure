@@ -1,4 +1,8 @@
 verb,class,function,parameters
+"variables,vars",System,variables,
+flush,System,flush,
+goto,System,goToLocation,*
+nothing,Player,nothing,
 look,Player,look,full
 "north,n",Player,move,north
 "east,e",Player,move,east

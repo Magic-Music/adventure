@@ -67,9 +67,9 @@ class Items
                 ->toArray();  
     }
 
-    public static function take($params)
+    public static function take(...$item)
     {
-        $item = trim(implode(' ', $params));
+        $item = trim(implode(' ', $item));
         $matchingItem = Item::where('slug', $item)
                 ->orWhere('short_description', $item)
                 ->orWhere('other_nouns', 'LIKE', "%|{$item}|%")
@@ -88,9 +88,9 @@ class Items
         return "You take the {$matchingItem->short_description}";
     }
     
-    public static function drop($params)
+    public static function drop(...$item)
     {
-        $item = trim(implode(' ', $params));
+        $item = trim(implode(' ', $item));
         $matchingItem = Item::where('slug', $item)
                 ->orWhere('short_description', $item)
                 ->orWhere('other_nouns', 'LIKE', "%|{$item}|%")

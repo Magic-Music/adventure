@@ -19,8 +19,10 @@ class Game
     {
         //If not configured in the env file, start at location with id 1
         $startLocationSlug = config('adventure.start_location_slug') ?? (Location::find(1)->slug);
+        $developerMode = config('adventure.developer_mode');
 
         self::$variables = [
+            'developerMode' => $developerMode,
             'currentLocation' => $startLocationSlug,
             'gameover' => false,
             'itemLocations' => [],
@@ -45,9 +47,9 @@ class Game
         session(['adventure' => self::$variables]);
     }
 
-    public static function get($key)
+    public static function get($key = null)
     {
-        return self::$variables[$key] ?? null;
+        return ($key == null) ? self::$variables : (self::$variables[$key] ?? null);
     }
 
     public static function set($key, $value)
@@ -87,5 +89,10 @@ class Game
             $list = preg_replace("((.*),)", "$1 and", $list);
         }
         return $list;
+    }
+    
+    public static function developerMode()
+    {
+        return self::get('developerMode');
     }
 }

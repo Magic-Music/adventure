@@ -29,16 +29,25 @@ class Player
             return Game::get('currentLocation');
         }
     }
-    
-    public function go($params)
+
+    /**
+     * Player hasn't pressed a key for a while, so we'll return an empty
+     * response so the AI characters can do their thing
+     * @return string
+     */
+    public function nothing()
     {
-        $direction = $this->directions[$params[0]] ?? $params[0];
-        return $this->move([$direction]);
+        return "You wait. Time passes...";
     }
     
-    public function move($params)
+    public function go($direction)
     {
-        $direction = $params[0];
+        $direction = $this->directions[$direction] ?? $direction;
+        return $this->move($direction);
+    }
+    
+    public function move($direction)
+    {
         $location = Location::where('slug', self::currentLocation())->first();
         $newLocation = $location->$direction;
         
@@ -48,33 +57,6 @@ class Player
         
         self::currentLocation($newLocation);   
         return "You go $direction.<br><br>" . $this->look();
-    }
-    
-    public function goToLocation($slug)
-    {
-        self::currentLocation($slug);   
-        return ($this->look());        
-    }
-    
-    public function look($params = null)
-    {
-        $currentLocation = self::currentLocation();
-        $visitedPreviously = in_array($currentLocation, Game::get('locationsVisited'));
-        if (($params[0] ?? null) == 'full') {
-            $visitedPreviously = false;
-        }
-        $position = Location::where('slug', $currentLocation)->first();
-        if (!$visitedPreviously) {
-            $location =  $position->long_description;
-            $itemList = Game::list(Items::listShort());
-            Game::pushUnique('locationsVisited', $currentLocation);
-        } else {
-            $exits = implode(',', $position->exits);     
-            $location = $position->description . " Exits are " . $exits;
-            $itemList = Game::list(Items::listShort(true));
-        }
-        $items = ($itemList) ? "<br><br>You can see $itemList." : '';
-        return "You are " . $location . $items . "<br><br>";
     }
     
     public function inventory()
@@ -90,5 +72,31 @@ class Player
             
             return "You are carrying " . Game::list($items);
         }
+    }    
+    
+    public function look($fullDescription = null)
+    {
+        return self::getLocationDescription($fullDescription);
+    }
+
+    public static function getLocationDescription($fullDescription = null)
+    {
+        $currentLocation = self::currentLocation();
+        $visitedPreviously = in_array($currentLocation, Game::get('locationsVisited'));
+        if ($fullDescription == 'full') {
+            $visitedPreviously = false;
+        }
+        $position = Location::where('slug', $currentLocation)->first();
+        if (!$visitedPreviously) {
+            $location =  $position->long_description;
+            $itemList = Game::list(Items::listShort());
+            Game::pushUnique('locationsVisited', $currentLocation);
+        } else {
+            $exits = implode(',', $position->exits);     
+            $location = $position->description . " Exits are " . $exits;
+            $itemList = Game::list(Items::listShort(true));
+        }
+        $items = ($itemList) ? "<br><br>You can see $itemList." : '';
+        return "You are " . $location . $items . "<br><br>";        
     }
 }
