@@ -5,6 +5,13 @@ namespace App\Game;
 use App\Game\Game;
 use App\Models\Location;
 
+/**
+ * Class System
+ * @package App\Game
+ *
+ * This class provides system commands only available in developer mode
+ * (Set developer mode in env)
+ */
 class System
 {
     /**
@@ -14,9 +21,9 @@ class System
     public function flush()
     {
         Game::clear();
-        return "Flushed";        
+        return "Flushed";
     }
-    
+
     /*
      * List the game session variables
      */
@@ -24,11 +31,16 @@ class System
     {
         return "<pre>" . print_r(Game::get(), true) . "</pre>";
     }
-    
+
+    /**
+     * Teleport to the given location slug
+     * @param string $slug
+     * @return string
+     */
     public function goToLocation($slug)
     {
         if (Location::where('slug', $slug)->first()) {
-            Player::currentLocation($slug);   
+            Player::currentLocation($slug);
             return "You teleport.<br><br>" . Player::getLocationDescription(true);
         } else {
             return "Location $slug not found";

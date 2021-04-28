@@ -129,7 +129,7 @@ class Player
         if ($fullDescription == 'full') {
             $visitedPreviously = false;
         }
-        
+
         $position = Location::where('slug', $currentLocation)->first();
         if (!$visitedPreviously) {
             $location =  $position->long_description;
