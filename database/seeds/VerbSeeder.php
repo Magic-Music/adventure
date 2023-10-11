@@ -26,5 +26,7 @@ class VerbSeeder extends Seeder
         }
 
         fclose($handle);
+
+        dd(Verb::all()->toArray());
     }
 }

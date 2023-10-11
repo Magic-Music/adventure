@@ -39,7 +39,7 @@ class Game
     private static function reset()
     {
         //If not configured in the env file, start at location with id 1
-        $startLocationSlug = config('adventure.start_location_slug') ?? (Location::find(1)->slug);
+        $startLocationSlug = config('adventure.start_location_slug') ?: (Location::find(1)->slug);
         $developerMode = config('adventure.developer_mode');
 
         self::$variables = [
@@ -66,6 +66,7 @@ class Game
         if(!self::$variables) {
             self::reset();
         }
+
     }
 
     /**
