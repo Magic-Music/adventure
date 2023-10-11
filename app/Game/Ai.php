@@ -14,15 +14,15 @@ class Ai
         foreach ($characters as $character) {
             $actions = [];
             if (Characters::isHere($character)) {
-                $actions = array_filter(rand(0,1) ? [$this->do(), $this->say()] : [$this->say(), $this->do());
-                $actions[] = $this->go();
+                $actions = array_filter(rand(0,1) ? [self::do(), self::say()] : [self::say(), self::do()]);
+                $actions[] = self::go();
             } else {
-                $do = $this->do();
-                $this->go();
+                $do = self::do();
+                self::go();
                 if (Characters::isHere($character)) {
                     $actions[] = " arrives";
                 }
-                $actions[] = $this->say();
+                $actions[] = self::say();
             }
 
         }
@@ -34,5 +34,20 @@ class Ai
         }
 
         return $characterResponse;
+    }
+
+    private static function say(): string
+    {
+        return '';
+    }
+
+    private static function do(): string
+    {
+        return '';
+    }
+
+    private static function go(): string
+    {
+        return '';
     }
 }
