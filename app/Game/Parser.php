@@ -16,7 +16,7 @@ use App\Models\Verb;
  */
 class Parser
 {
-    private static $stripWords = [
+    private $stripWords = [
         'a',
         'an',
         'the',
@@ -25,18 +25,20 @@ class Parser
         'me'
     ];
 
+    public function __construct(private Game $game) { }
+
     /**
      * Parse the player input
      * @param string $command
      * @return string The response to display to the player
      */
-    public static function parse($command)
+    public function parse($command)
     {
         $words = explode(' ', $command);
 
         //Remove any stripWords
         foreach ($words as $index => $word) {
-            if(in_array($word, self::$stripWords)) {
+            if(in_array($word, $this->stripWords)) {
                 unset($words[$index]);
             }
         }
@@ -50,7 +52,7 @@ class Parser
         }
 
         //System functions can only be invoked in developer mode
-        if ($matchVerb->class == 'System' && !Game::developerMode()) {
+        if ($matchVerb->class == 'System' && !$this->game->developerMode()) {
             return "Sorry, I dont understand what you mean";
         }
 
@@ -69,6 +71,6 @@ class Parser
         }
 
         //Invoke the class and function, pass the parameters, return the response
-        return (new $class)->$function(...$parameters);
+        return app($class)->$function(...$parameters);
     }
 }

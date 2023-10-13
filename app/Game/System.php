@@ -14,13 +14,18 @@ use App\Models\Location;
  */
 class System
 {
+    public function __construct(
+        private Game $game,
+        private Player $player
+    ) { }
+
     /**
      * Clear all game session variables - resets the game
      * @return string
      */
     public function flush()
     {
-        Game::clear();
+        $this->game->clear();
         return "Flushed";
     }
 
@@ -29,7 +34,7 @@ class System
      */
     public function variables()
     {
-        return "<pre>" . print_r(Game::get(), true) . "</pre>";
+        return "<pre>" . print_r($this->game->get(), true) . "</pre>";
     }
 
     /**
@@ -40,8 +45,8 @@ class System
     public function goToLocation($slug)
     {
         if (Location::where('slug', $slug)->first()) {
-            Player::currentLocation($slug);
-            return "You teleport.<br><br>" . Player::getLocationDescription(true);
+            $this->player->currentLocation($slug);
+            return "You teleport.<br><br>" . $this->player->getLocationDescription(true);
         } else {
             return "Location $slug not found";
         }
