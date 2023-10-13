@@ -21,28 +21,28 @@ class Game
     /**
      * @var array In game variables, stored in session
      */
-    public static $variables;
+    public $variables;
 
     /**
      * Wipe all in-game variables
      */
-    public static function clear()
+    public function clear()
     {
         session()->flush();
-        self::$variables = null;
+        $this->variables = null;
     }
 
     /**
      * Start a new game
      * Set in-game variables to default values
      */
-    private static function reset()
+    private function reset()
     {
         //If not configured in the env file, start at location with id 1
         $startLocationSlug = config('adventure.start_location_slug') ?: (Location::find(1)->slug);
         $developerMode = config('adventure.developer_mode');
 
-        self::$variables = [
+        $this->variables = [
             'developerMode' => $developerMode,
             'currentLocation' => $startLocationSlug,
             'gameover' => false,
@@ -51,31 +51,27 @@ class Game
             'characterLocations' => [],
             'locationsVisited' => [],
         ];
-
-        Items::initialise();
-        Characters::initialise();
     }
 
     /**
      * Start of a round
      * Load in-game variables from session
      */
-    public static function initialise()
+    public function initialise()
     {
-        self::$variables = session('adventure') ?? null;
-        if(!self::$variables) {
-            self::reset();
+        $this->variables = session('adventure') ?? null;
+        if(!$this->variables) {
+            $this->reset();
         }
-
     }
 
     /**
      * End of a round
      * Store in-game variables to session
      */
-    public static function save()
+    public function save()
     {
-        session(['adventure' => self::$variables]);
+        session(['adventure' => $this->variables]);
     }
 
     /**
@@ -84,9 +80,9 @@ class Game
      * @param string|null $key
      * @return array|mixed|null
      */
-    public static function get($key = null)
+    public function get($key = null)
     {
-        return ($key == null) ? self::$variables : (self::$variables[$key] ?? null);
+        return ($key == null) ? $this->variables : ($this->variables[$key] ?? null);
     }
 
     /**
@@ -94,9 +90,9 @@ class Game
      * @param string $key
      * @param mixed $value
      */
-    public static function set($key, $value)
+    public function set($key, $value)
     {
-        self::$variables[$key] = $value;
+        $this->variables[$key] = $value;
     }
 
     /**
@@ -104,9 +100,9 @@ class Game
      * @param string $key
      * @param mixed $value
      */
-    public static function push($key, $value)
+    public function push($key, $value)
     {
-        array_push(self::$variables[$key], $value);
+        array_push($this->variables[$key], $value);
     }
 
     /**
@@ -114,10 +110,10 @@ class Game
      * @param string $key
      * @param mixed $value
      */
-    public static function pushUnique($key, $value)
+    public function pushUnique($key, $value)
     {
-        if (!in_array($value, self::$variables[$key])) {
-            array_push(self::$variables[$key], $value);
+        if (!in_array($value, $this->variables[$key])) {
+            array_push($this->variables[$key], $value);
         }
     }
 
@@ -126,8 +122,8 @@ class Game
      * @param string $key
      * @param mixed $value
      */
-    public static function remove($key, $value) {
-        unset(self::$variables[$key][array_search($value, self::$variables[$key])]);
+    public function remove($key, $value) {
+        unset($this->variables[$key][array_search($value, $this->variables[$key])]);
     }
 
     /**
@@ -135,12 +131,12 @@ class Game
      * @param string $update if not 'no' use this value
      * @return string|void The game-over status ('no' while game is running)
      */
-    public static function gameover($update = 'no')
+    public function gameover($update = 'no')
     {
         if($update != 'no') {
-            self::set('gameover', $update);
+            $this->set('gameover', $update);
         } else {
-            return self::get('gameover');
+            return $this->get('gameover');
         }
     }
 
@@ -152,7 +148,7 @@ class Game
      * @param $array
      * @return string
      */
-    public static function list($array)
+    public function list($array)
     {
         $list = implode(', ', $array);
         if(count($array) > 1) {
@@ -165,8 +161,8 @@ class Game
      * Get the developer mode status
      * @return bool
      */
-    public static function developerMode()
+    public function developerMode()
     {
-        return self::get('developerMode');
+        return $this->get('developerMode');
     }
 }
