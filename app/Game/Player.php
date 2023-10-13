@@ -31,18 +31,23 @@ class Player
         'd' => 'down'
     ];
 
+    public function __construct(
+        private Game $game,
+        private Items $items
+    ) { }
+
     /**
      * Get or set the player location
      *
      * @param false $update When true set the player location to the given location slug
      * @return string|void When getting, returns the current location slug
      */
-    public static function currentLocation($update = false)
+    public function currentLocation($update = false)
     {
         if($update !== false) {
-            Game::set('currentLocation', $update);
+            $this->game->set('currentLocation', $update);
         } else {
-            return Game::get('currentLocation');
+            return $this->game->get('currentLocation');
         }
     }
 
@@ -74,14 +79,14 @@ class Player
      */
     public function move($direction)
     {
-        $location = Location::where('slug', self::currentLocation())->first();
+        $location = Location::where('slug', $this->currentLocation())->first();
         $newLocation = $location->$direction;
 
         if ($newLocation == '' || is_null($newLocation)) {
             return "You cannot go $direction.";
         }
 
-        self::currentLocation($newLocation);
+        $this->currentLocation($newLocation);
         return "You go $direction.<br><br>" . $this->look();
     }
 
@@ -91,7 +96,7 @@ class Player
      */
     public function inventory()
     {
-        $carried = Game::get('itemsCarried');
+        $carried = $this->game->get('itemsCarried');
         if(!$carried) {
             return "You aren't carrying anything.";
         } else {
@@ -100,7 +105,7 @@ class Player
                     ->pluck('short_description_with_capitalised_article')
                     ->toArray();
 
-            return "You are carrying " . Game::list($items);
+            return "You are carrying " . $this->game->list($items);
         }
     }
 
@@ -111,7 +116,7 @@ class Player
      */
     public function look($fullDescription = null)
     {
-        return self::getLocationDescription($fullDescription);
+        return $this->getLocationDescription($fullDescription);
     }
 
     /**
@@ -119,13 +124,13 @@ class Player
      * @param null $fullDescription
      * @return string
      */
-    public static function getLocationDescription($fullDescription = null)
+    public function getLocationDescription($fullDescription = null)
     {
-        $currentLocation = self::currentLocation();
+        $currentLocation = $this->currentLocation();
 
         //By default once a location has been visited, we'll only display the
         //short description. This is overridden with the fullDescription flag
-        $visitedPreviously = in_array($currentLocation, Game::get('locationsVisited'));
+        $visitedPreviously = in_array($currentLocation, $this->game->get('locationsVisited'));
         if ($fullDescription == 'full') {
             $visitedPreviously = false;
         }
@@ -133,12 +138,12 @@ class Player
         $position = Location::where('slug', $currentLocation)->first();
         if (!$visitedPreviously) {
             $location =  $position->long_description;
-            $itemList = Game::list(Items::listShort());
-            Game::pushUnique('locationsVisited', $currentLocation);
+            $itemList = $this->items->listShort();
+            $this->game->pushUnique('locationsVisited', $currentLocation);
         } else {
             $exits = implode(',', $position->exits);
             $location = $position->description . " Exits are " . $exits;
-            $itemList = Game::list(Items::listShort(true));
+            $itemList = $this->items->listShort(true);
         }
         $items = ($itemList) ? "<br><br>You can see $itemList." : '';
         return "You are " . $location . $items . "<br><br>";

@@ -8,14 +8,16 @@ use App\Models\Character;
 
 class Characters
 {
-    public static function initialise()
+    public function __construct(private Game $game) { }
+
+    public function initialise()
     {
         $characters = Character::select('slug', 'location')->get();
         $characterLocations = [];
         foreach ($characters as $character) {
             $characterLocations[$character->slug] = $character->location;
         }
-        Game::set('characterLocations', $characterLocations);
+        $this->game->set('characterLocations', $characterLocations);
     }
 
     public static function getAllCharacterSlugs()
@@ -23,8 +25,9 @@ class Characters
         return Character::select('slug')->pluck('slug')->toArray();
     }
 
-    public static function isHere($characterSlug)
+    public static function isHere($characterSlug): array
     {
-        return $here;
+        //TODO - logic to return an array of characters in current location
+        return [];
     }
 }

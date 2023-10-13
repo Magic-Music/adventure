@@ -2,6 +2,13 @@
 
 namespace App\Providers;
 
+use App\Game\Ai;
+use App\Game\Characters;
+use App\Game\Game;
+use App\Game\Items;
+use App\Game\Parser;
+use App\Game\Player;
+use App\Game\System;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(Game::class, Game::class);
     }
 
     /**

@@ -6,7 +6,7 @@ use App\Game\Characters;
 
 class Ai
 {
-    public static function run()
+    public function run()
     {
         $responses = [];
         $characters = Characters::getAllCharacterSlugs();
@@ -14,15 +14,15 @@ class Ai
         foreach ($characters as $character) {
             $actions = [];
             if (Characters::isHere($character)) {
-                $actions = array_filter(rand(0,1) ? [self::do(), self::say()] : [self::say(), self::do()]);
-                $actions[] = self::go();
+                $actions = array_filter(rand(0,1) ? [$this->do(), $this->say()] : [$this->say(), $this->do()]);
+                $actions[] = $this->go();
             } else {
-                $do = self::do();
-                self::go();
+                $do = $this->do();
+                $this->go();
                 if (Characters::isHere($character)) {
                     $actions[] = " arrives";
+                    $actions[] = $this->say();
                 }
-                $actions[] = self::say();
             }
 
         }
@@ -36,17 +36,17 @@ class Ai
         return $characterResponse;
     }
 
-    private static function say(): string
+    private function say(): string
     {
         return '';
     }
 
-    private static function do(): string
+    private function do(): string
     {
         return '';
     }
 
-    private static function go(): string
+    private function go(): string
     {
         return '';
     }
